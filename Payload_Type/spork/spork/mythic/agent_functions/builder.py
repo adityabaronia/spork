@@ -36,9 +36,9 @@ class spork(PayloadType):
         BuildParameter(
             name="output_type",
             parameter_type=BuildParameterType.ChooseOne,
-            choices=["WinExe", "Shellcode", "Service"],
-            default_value="WinExe",
-            description="Output as shellcode, executable, or service.",
+            choices=["Executable", "Shellcode", "Service", "dll"],
+            default_value="Executable",
+            description="Output as shellcode, executable, service or a dll.",
         )
     ]
     
