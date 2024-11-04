@@ -6,14 +6,7 @@ import sys
 import tempfile
 import traceback
 from shutil import copytree
-from mythic_container.PayloadBuilder import (
-    PayloadType,
-    SupportedOS,
-    #BuildParameter,
-    #BuildParameterType,
-    BuildResponse,
-    BuildStatus,
-)
+from mythic_container.PayloadBuilder import *
 
 # pylint: disable=too-many-locals,too-many-branches,too-many-statements
 
