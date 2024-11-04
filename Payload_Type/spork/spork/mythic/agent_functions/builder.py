@@ -32,7 +32,16 @@ class spork(PayloadType):
     
     # Supported C2 profiles for spork
     c2_profiles = ["http"]
-
+    build_parameters = [
+        BuildParameter(
+            name="output_type",
+            parameter_type=BuildParameterType.ChooseOne,
+            choices=["WinExe", "Shellcode", "Service"],
+            default_value="WinExe",
+            description="Output as shellcode, executable, or service.",
+        )
+    ]
+    
     agent_path = pathlib.Path(".") / "spork" / "mythic"
     agent_code_path = pathlib.Path(".") / "spork" / "agent_code"
     agent_icon_path = agent_path / "agent_icon" / "spork.svg"
