@@ -5,4 +5,7 @@
   "exclude_documentation_c2": true,
   "exclude_documentation_wrapper": true,
   "exclude_agent_icons": false,
+  "remote_images": {
+    "spork": "ghcr.io/mythicagents/thanatos:v0.1.9"
+  }
 }
