@@ -25,7 +25,9 @@ class spork(PayloadType):
     author = "@smoke"  # authors
 
     # Platforms that spork supports
-    supported_os = [SupportedOS.Windows]
+    supported_os = [
+        SupportedOS.Windows
+    ]
     wrapper = False
     wrapped_payloads = []
     # Description of the payload in Mythic
