@@ -5,6 +5,8 @@
   "exclude_documentation_c2": true,
   "exclude_documentation_wrapper": true,
   "exclude_agent_icons": false,
+  "name": "spork",
+  "description": "Description of your spork agent",
   "remote_images": {
     "spork": "ghcr.io/mythicagents/thanatos:v0.1.9"
   }
