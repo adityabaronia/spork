@@ -6,6 +6,5 @@
   "exclude_documentation_wrapper": true,
   "exclude_agent_icons": false,
   "name": "spork",
-  "description": "Description of your spork agent",
-  
+  "description": "Description of your spork agent"
 }
