@@ -29,7 +29,7 @@ class spork(PayloadType):
     wrapper = False
     wrapped_payloads = []
     # Description of the payload in Mythic
-    note = "Windows agent written in Rust"
+    description = "Windows agent written in Rust"
 
     # Payload does not support dynamic loading
     supports_dynamic_loading = False
