@@ -9,8 +9,8 @@ from shutil import copytree
 from mythic_container.PayloadBuilder import (
     PayloadType,
     SupportedOS,
-    BuildParameter,
-    BuildParameterType,
+    #BuildParameter,
+    #BuildParameterType,
     BuildResponse,
     BuildStatus,
 )
