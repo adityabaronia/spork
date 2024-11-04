@@ -1,8 +1,0 @@
-[package]
-name = "payload"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-winapi = { version = "0.3", features = ["tlhelp32", "handleapi", "processthreadsapi", "memoryapi", "winbase","ntdef", "wininet", "winhttp", "winuser", "synchapi", "synchapi", "winnt"] }
-winsafe = { version = "0.0.22", features = ["kernel"] }
