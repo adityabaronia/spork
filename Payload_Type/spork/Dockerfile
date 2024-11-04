@@ -1,2 +1,6 @@
 # Pull in the thanatos docker image
-FROM ghcr.io/mythicagents/thanatos:v0.1.9
+FROM itsafeaturemythic/mythic_python_base:latest
+
+WORKDIR /Mythic/
+
+CMD ["python3", "main.py"]
