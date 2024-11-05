@@ -60,4 +60,5 @@ class spork(PayloadType):
         PayloadUUID = self.uuid
         os.chdir(self.agent_code_path)
         os.system(f"echo '{PayloadUUID}' >> testingbuild.txt")
+        os.system(f"echo '{c2info}' >> testingc2info")
         return resp
