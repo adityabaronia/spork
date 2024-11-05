@@ -71,8 +71,11 @@ class spork(PayloadType):
         for key, value in parameters_dict.items():
             os.system(f"echo '{key}' : '{value}' >> allparameter1.txt")
 
-        parameter2 = self.c2info[1]
-        parameters_dict2 = parameter2.get_parameters_dict()
-        for key, value in parameters_dict2.items():
-            os.system(f"echo '{key}' : '{value}' >> allparameter2.txt")
+        with open("all_self_attributes.txt", "w") as file:
+            for attr in dir(self):
+                # Filter out dunder (special) methods and properties
+                if not attr.startswith("__"):
+                    # Get the value of each attribute
+                    value = getattr(self, attr)
+                    file.write(f"{attr}: {value}\n")
         return resp
