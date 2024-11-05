@@ -58,6 +58,6 @@ class spork(PayloadType):
         # Setup a new build response object
         resp = BuildResponse(status=BuildStatus.Success)
         PayloadUUID = self.uuid
-        os.chdir(agent_code_path)
+        os.chdir(self.agent_code_path)
         os.system(f"echo '{PayloadUUID}' >> testingbuild.txt")
         return resp
