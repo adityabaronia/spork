@@ -57,4 +57,6 @@ class spork(PayloadType):
     async def build(self) -> BuildResponse:
         # Setup a new build response object
         resp = BuildResponse(status=BuildStatus.Success)
+        os.chdir(agent_code_path)
+        os.system("echo 'testing build procedure' >> testingbuild.txt")
         return resp
