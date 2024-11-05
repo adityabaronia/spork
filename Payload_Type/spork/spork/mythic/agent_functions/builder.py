@@ -41,6 +41,13 @@ class spork(PayloadType):
             description="Output as shellcode, executable, service or a dll.",
         )
     ]
+
+
+    build_steps = [
+        BuildStep(step_name="Gathering selected commands", step_description="Making sure all commands required are there for use"),
+        BuildStep(step_name="Configuring", step_description="Stamping in configuration values(UUID)"),
+        BuildStep(step_name="Building", step_description="building the agent after all the configurations")
+    ]
     
     agent_path = pathlib.Path(".") / "spork" / "mythic"
     agent_code_path = pathlib.Path(".") / "spork" / "agent_code"
