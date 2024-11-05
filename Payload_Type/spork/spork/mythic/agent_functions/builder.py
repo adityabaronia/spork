@@ -59,6 +59,12 @@ class spork(PayloadType):
         resp = BuildResponse(status=BuildStatus.Success)
         PayloadUUID = self.uuid
         os.chdir(self.agent_code_path)
+        # finding UUID
         os.system(f"echo '{PayloadUUID}' >> testingbuild.txt")
-        os.system(f"echo '{self.c2info}' >> testingc2info")
+        # finding callbackhost
+        if len(self.c2info) != 1:
+            resp.set_status(BuildStatus.Error)
+        profile = self.c2info[0]
+        callback = profile.get_parameters_dict()['callback_host']
+        os.system(f"echo '{callback}' >> testingc2info")
         return resp
