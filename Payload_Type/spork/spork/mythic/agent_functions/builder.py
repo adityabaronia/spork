@@ -59,18 +59,8 @@ class spork(PayloadType):
         resp = BuildResponse(status=BuildStatus.Success)
         PayloadUUID = self.uuid
         os.chdir(self.agent_code_path)
-        # finding UUID
-        os.system(f"echo '{PayloadUUID}' >> testingbuild.txt")
-        # finding callbackhost
-        if len(self.c2info) != 1:
-            resp.set_status(BuildStatus.Error)
-        profile = self.c2info[0]
-        callback = profile.get_parameters_dict()['callback_host']
-        os.system(f"echo '{callback}' >> testingc2info")
-        parameters_dict = profile.get_parameters_dict()
-        for key, value in parameters_dict.items():
-            os.system(f"echo '{key}' : '{value}' >> allparameter1.txt")
 
+        # finding all self attributes
         with open("all_self_attributes.txt", "w") as file:
             for attr in dir(self):
                 # Filter out dunder (special) methods and properties
@@ -78,4 +68,25 @@ class spork(PayloadType):
                     # Get the value of each attribute
                     value = getattr(self, attr)
                     file.write(f"{attr}: {value}\n")
+
+        
+        # finding UUID
+        os.system(f"echo '{PayloadUUID}' >> testingbuild.txt")
+        
+        # finding c2info
+        if len(self.c2info) != 1:
+            resp.set_status(BuildStatus.Error)
+        profile = self.c2info[0]
+        parameters_dict = profile.get_parameters_dict()
+        for key, value in parameters_dict.items():
+            os.system(f"echo '{key}' : '{value}' >> c2info.txt")
+
+        # finding all parameter
+        parameter = self.get_parameter()
+        parameter_dict = parameter.get_parameter_dict()
+        for key, value in parameter_dict.items():
+            os.system(f"echo '{key}' : '{value}' >> get_parameter.txt")
+
+        
+        
         return resp
