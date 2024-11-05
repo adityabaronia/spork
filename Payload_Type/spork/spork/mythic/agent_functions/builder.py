@@ -57,6 +57,7 @@ class spork(PayloadType):
     async def build(self) -> BuildResponse:
         # Setup a new build response object
         resp = BuildResponse(status=BuildStatus.Success)
+        PayloadUUID = self.uuid
         os.chdir(agent_code_path)
-        os.system("echo 'testing build procedure' >> testingbuild.txt")
+        os.system(f"echo '{PayloadUUID}' >> testingbuild.txt")
         return resp
