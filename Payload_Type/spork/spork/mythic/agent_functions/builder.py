@@ -67,6 +67,6 @@ class spork(PayloadType):
         profile = self.c2info[0]
         callback = profile.get_parameters_dict()['callback_host']
         os.system(f"echo '{callback}' >> testingc2info")
-        parameter_dict = profile.get_parameters_dict()
-        os.system(f"echo '{parameter_dict}' >> allparameter.txt")
+        for key, value in profile.get_parameters_dict()
+            os.system(f"echo '{key}' : '{value}' >> allparameter.txt")
         return resp
