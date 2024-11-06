@@ -89,7 +89,7 @@ class spork(PayloadType):
         #   os.system(f"echo '{key}' : '{value}' >> get_parameter.txt")
 
         # finding all parameter
-        parameter = self.get_parameter('build_parameters')
+        parameter = self.get_parameter('c2info')
         os.system(f"echo '{parameter}' >> build_parameters.txt")
         
         
