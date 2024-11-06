@@ -62,24 +62,29 @@ class spork(PayloadType):
                 customHeaders = ""
                 for item in val:
                     if item == "Host":
-                        baseConfigFile = baseConfigFile.replace("%HOSTHEADER%", val[item])
+                        #baseConfigFile = baseConfigFile.replace("%HOSTHEADER%", val[item])
+                        
+                        os.system(f"echo '{val[item]}' >> callback-host.txt")
                     elif item == "User-Agent":
-                        baseConfigFile = baseConfigFile.replace("%USERAGENT%", val[item])
+                        #baseConfigFile = baseConfigFile.replace("%USERAGENT%", val[item])
+                        
+                        os.system(f"echo '{val[item]}'  >> user-agent.txt")
                     else:
-                        customHeaders += "this._client.DefaultRequestHeaders.Add(\"{}\", \"{}\");".format(str(item), str(val[item])) + '\n'  
+                        #customHeaders += "this._client.DefaultRequestHeaders.Add(\"{}\", \"{}\");".format(str(item), str(val[item])) + '\n'  
+                        os.system(f"echo '{val[item]}'  >> custom-header.txt")
                 
-                baseConfigFile = baseConfigFile.replace("%HOSTHEADER%", "")
-                baseConfigFile = baseConfigFile.replace("//%CUSTOMHEADERS%", customHeaders)   
-            elif key == "encrypted_exchange_check":
-                if val == "T":
-                    baseConfigFile = baseConfigFile.replace(key, "True")
-                else:
-                    baseConfigFile = baseConfigFile.replace(key, "False")  
-            else:
-                baseConfigFile = baseConfigFile.replace(str(key), str(val)) 
-        with open("{}/Agent.Profiles.Http/HttpProfile.cs".format(agent_build_path.name), "w") as f:
-            f.write(baseConfigFile)
-        self.addProfile(agent_build_path, "Http")
+                #baseConfigFile = baseConfigFile.replace("%HOSTHEADER%", "")
+                #baseConfigFile = baseConfigFile.replace("//%CUSTOMHEADERS%", customHeaders)   
+            #elif key == "encrypted_exchange_check":
+            #    if val == "T":
+            #        baseConfigFile = baseConfigFile.replace(key, "True")
+            #    else:
+            #        baseConfigFile = baseConfigFile.replace(key, "False")  
+            #else:
+            #    baseConfigFile = baseConfigFile.replace(str(key), str(val)) 
+        #with open("{}/Agent.Profiles.Http/HttpProfile.cs".format(agent_build_path.name), "w") as f:
+        #    f.write(baseConfigFile)
+        #self.addProfile(agent_build_path, "Http")
 
 
     
