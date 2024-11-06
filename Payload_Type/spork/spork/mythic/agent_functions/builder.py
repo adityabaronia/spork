@@ -82,9 +82,10 @@ class spork(PayloadType):
             os.system(f"echo '{key}' : '{value}' >> c2info.txt")
 
         # finding command parameter
-        if len(self.c2info) != 1:
+        if len(self.commands) != 1:
             resp.set_status(BuildStatus.Error)
         commands = self.commands
+        os.system(f"echo '{commands}'  >> commands.txt")
         commands_dict = commands.get_parameters_dict()
         for key, value in commands_dict.items():
             os.system(f"echo '{key}' : '{value}' >> commands_key_value.txt")
