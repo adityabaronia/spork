@@ -53,15 +53,69 @@ class spork(PayloadType):
     agent_code_path = pathlib.Path(".") / "spork" / "agent_code"
     agent_icon_path = agent_path / "agent_icon" / "spork.svg"
 
+
+    async def buildHTTP(self, agent_build_path, c2):
+        baseConfigFile = open("{}/Agent.Profiles.Http/Base.txt".format(agent_build_path.name), "r").read()
+        baseConfigFile = baseConfigFile.replace("%UUID%", self.uuid)
+        for key, val in c2.get_parameters_dict().items():
+            if key == "headers":
+                customHeaders = ""
+                for item in val:
+                    if item == "Host":
+                        baseConfigFile = baseConfigFile.replace("%HOSTHEADER%", val[item])
+                    elif item == "User-Agent":
+                        baseConfigFile = baseConfigFile.replace("%USERAGENT%", val[item])
+                    else:
+                        customHeaders += "this._client.DefaultRequestHeaders.Add(\"{}\", \"{}\");".format(str(item), str(val[item])) + '\n'  
+                
+                baseConfigFile = baseConfigFile.replace("%HOSTHEADER%", "")
+                baseConfigFile = baseConfigFile.replace("//%CUSTOMHEADERS%", customHeaders)   
+            elif key == "encrypted_exchange_check":
+                if val == "T":
+                    baseConfigFile = baseConfigFile.replace(key, "True")
+                else:
+                    baseConfigFile = baseConfigFile.replace(key, "False")  
+            else:
+                baseConfigFile = baseConfigFile.replace(str(key), str(val)) 
+        with open("{}/Agent.Profiles.Http/HttpProfile.cs".format(agent_build_path.name), "w") as f:
+            f.write(baseConfigFile)
+        self.addProfile(agent_build_path, "Http")
+
+
+    
     # This function is called to build a new payload
     async def build(self) -> BuildResponse:
         # Setup a new build response object
         resp = BuildResponse(status=BuildStatus.Success)
-        PayloadUUID = self.uuid
-        os.chdir(self.agent_code_path)
+
+
+        for c2 in self.c2info:
+            profile = c2.get_c2profile()
+            if profile["name"] == "http":
+                # roots_replace += "<assembly fullname=\"Agent.Profiles.HTTP\"/>" + '\n'
+                await self.buildHTTP(agent_build_path, c2)
+            elif profile["name"] == "smb":
+                #roots_replace += "<assembly fullname=\"Agent.Profiles.SMB\"/>" + '\n'
+                #await self.buildSMB(agent_build_path, c2)
+            elif profile["name"] == "websocket":
+                #roots_replace += "<assembly fullname=\"Agent.Profiles.Websocket\"/>" + '\n'
+                #await self.buildWebsocket(agent_build_path, c2)
+            elif profile["name"] == "slack":
+                #roots_replace += "<assembly fullname=\"Agent.Profiles.Slack\"/>" + '\n'
+                #await self.buildSlack(agent_build_path, c2)
+            elif profile["name"] == "discord":
+                #roots_replace += "<assembly fullname=\"Agent.Profiles.Discord\"/>" + '\n'
+                #await self.buildDiscord(agent_build_path, c2)
+            else:
+                raise Exception("Unsupported C2 profile type for spork: {}".format(profile["name"]))
+
+         return resp
+        
+        """PayloadUUID = self.uuid
+        os.chdir(self.agent_code_path)"""
 
         # finding all self attributes
-        with open("all_self_attributes.txt", "w") as file:
+        """with open("all_self_attributes.txt", "w") as file:
             for attr in dir(self):
                 # Filter out dunder (special) methods and properties
                 if not attr.startswith("__"):
@@ -79,23 +133,8 @@ class spork(PayloadType):
         profile = self.c2info[0]
         parameters_dict = profile.get_parameters_dict()
         for key, value in parameters_dict.items():
-            os.system(f"echo '{key}' : '{value}' >> c2info.txt")
+            os.system(f"echo '{key}' : '{value}' >> c2info.txt")"""
 
-        # finding command parameter
-        if len(self.commands) != 1:
-            resp.set_status(BuildStatus.Error)
-        commands = self.commands
-        os.system(f"echo '{commands}'  >> commands.txt")
-        commands_dict = commands.get_parameters_dict()
-        for key, value in commands_dict.items():
-            os.system(f"echo '{key}' : '{value}' >> commands_key_value.txt")
-        #parameter_dict = parameter.get_parameter_dict()
-        #for key, value in parameter_dict.items():
-        #   os.system(f"echo '{key}' : '{value}' >> get_parameter.txt")
-
-        # finding all parameter
-        #parameter = self.get_parameter('c2info')
-        #os.system(f"echo '{parameter}' >> build_parameters.txt")
+       
         
         
-        return resp
