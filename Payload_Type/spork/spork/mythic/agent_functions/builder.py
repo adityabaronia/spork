@@ -82,10 +82,11 @@ class spork(PayloadType):
             os.system(f"echo '{key}' : '{value}' >> c2info.txt")
 
         # finding all parameter
-        parameter = self.get_parameter[0]
-        parameter_dict = parameter.get_parameter_dict()
-        for key, value in parameter_dict.items():
-            os.system(f"echo '{key}' : '{value}' >> get_parameter.txt")
+        parameter = self.get_parameter('commands')
+        os.system(f"echo '{parameter}' >> parameter_commands.txt")
+        #parameter_dict = parameter.get_parameter_dict()
+        #for key, value in parameter_dict.items():
+        #   os.system(f"echo '{key}' : '{value}' >> get_parameter.txt")
 
         
         
