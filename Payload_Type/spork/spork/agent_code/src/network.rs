@@ -67,18 +67,18 @@ fn generating_checkin_data() ->String {
         "user":"smoke",
         "host":"DESKTOP-ERCDV1S",
         "pid":null,
-        "uuid":"73579340-6d53-4d08-ba89-27581c51b6cc",
+        "uuid":"",
     });
     
     let uuid_str = String::from("%UUID%");
     let pid = unsafe{GetCurrentProcessId()};
     
-    //update_json_value(&mut checkin_object, "ip", "%HOSTNAME%");
-    //update_json_value(&mut checkin_object, "os", "Windows");
-    //update_json_value(&mut checkin_object, "user", "smoke");
-    //update_json_value(&mut checkin_object, "host", "DesktopA");
-    //update_json_value(&mut checkin_object, "pid", pid);
-    //update_json_value(&mut checkin_object, "uuid", uuid_str.clone());
+    update_json_value(&mut checkin_object, "ip", "%HOSTNAME%");
+    update_json_value(&mut checkin_object, "os", "Windows");
+    update_json_value(&mut checkin_object, "user", "smoke");
+    update_json_value(&mut checkin_object, "host", "DesktopA");
+    update_json_value(&mut checkin_object, "pid", pid);
+    update_json_value(&mut checkin_object, "uuid", uuid_str.clone());
   
     let checking_object_string = serde_json::to_string(&checkin_object).unwrap();
     
