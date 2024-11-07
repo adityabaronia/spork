@@ -93,7 +93,7 @@ class spork(PayloadType):
         # Setup a new build response object
         resp = BuildResponse(status=BuildStatus.Success)
         c2information = self.c2info
-        for key, val in c2information.get_aprameter_dict().items():
+        for key, val in c2information.get_parameter_dict().items():
             if key == "headers":
                 customHeaders = ""
                 for item in val:
