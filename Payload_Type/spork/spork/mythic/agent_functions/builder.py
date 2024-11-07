@@ -93,8 +93,8 @@ class spork(PayloadType):
         # Setup a new build response object
         resp = BuildResponse(status=BuildStatus.Success)
 
-
-        for c2 in self.c2info:
+        return resp
+        """for c2 in self.c2info:
             profile = c2.get_c2profile()
             if profile["name"] == "http":
                 for key, val in c2.get_parameters_dict().items():
@@ -113,7 +113,7 @@ class spork(PayloadType):
                                 #customHeaders += "this._client.DefaultRequestHeaders.Add(\"{}\", \"{}\");".format(str(item), str(val[item])) + '\n'  
                                 os.system(f"echo '{val[item]}'  >> custom-header.txt")
                 # roots_replace += "<assembly fullname=\"Agent.Profiles.HTTP\"/>" + '\n'
-                """await self.buildHTTP(agent_build_path, c2)
+                await self.buildHTTP(agent_build_path, c2)
             elif profile["name"] == "smb":
                 #roots_replace += "<assembly fullname=\"Agent.Profiles.SMB\"/>" + '\n'
                 #await self.buildSMB(agent_build_path, c2)
@@ -129,7 +129,7 @@ class spork(PayloadType):
             else:
                 raise Exception("Unsupported C2 profile type for spork: {}".format(profile["name"]))"""
 
-         return resp
+         #return resp
         
         """PayloadUUID = self.uuid
         os.chdir(self.agent_code_path)"""
