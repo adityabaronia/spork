@@ -54,7 +54,7 @@ class spork(PayloadType):
     agent_icon_path = agent_path / "agent_icon" / "spork.svg"
 
 
-    async def buildHTTP(self, agent_build_path, c2):
+    """async def buildHTTP(self, agent_build_path, c2):
         baseConfigFile = open("{}/Agent.Profiles.Http/Base.txt".format(agent_build_path.name), "r").read()
         baseConfigFile = baseConfigFile.replace("%UUID%", self.uuid)
         for key, val in c2.get_parameters_dict().items():
@@ -84,7 +84,7 @@ class spork(PayloadType):
             #    baseConfigFile = baseConfigFile.replace(str(key), str(val)) 
         #with open("{}/Agent.Profiles.Http/HttpProfile.cs".format(agent_build_path.name), "w") as f:
         #    f.write(baseConfigFile)
-        #self.addProfile(agent_build_path, "Http")
+        #self.addProfile(agent_build_path, "Http")"""
 
 
     
@@ -97,8 +97,23 @@ class spork(PayloadType):
         for c2 in self.c2info:
             profile = c2.get_c2profile()
             if profile["name"] == "http":
+                for key, val in c2.get_parameters_dict().items():
+                    if key == "headers":
+                        customHeaders = ""
+                        for item in val:
+                            if item == "Host":
+                                #baseConfigFile = baseConfigFile.replace("%HOSTHEADER%", val[item])
+                                
+                                os.system(f"echo '{val[item]}' >> callback-host.txt")
+                            elif item == "User-Agent":
+                                #baseConfigFile = baseConfigFile.replace("%USERAGENT%", val[item])
+                                
+                                os.system(f"echo '{val[item]}'  >> user-agent.txt")
+                            else:
+                                #customHeaders += "this._client.DefaultRequestHeaders.Add(\"{}\", \"{}\");".format(str(item), str(val[item])) + '\n'  
+                                os.system(f"echo '{val[item]}'  >> custom-header.txt")
                 # roots_replace += "<assembly fullname=\"Agent.Profiles.HTTP\"/>" + '\n'
-                await self.buildHTTP(agent_build_path, c2)
+                """await self.buildHTTP(agent_build_path, c2)
             elif profile["name"] == "smb":
                 #roots_replace += "<assembly fullname=\"Agent.Profiles.SMB\"/>" + '\n'
                 #await self.buildSMB(agent_build_path, c2)
@@ -112,7 +127,7 @@ class spork(PayloadType):
                 #roots_replace += "<assembly fullname=\"Agent.Profiles.Discord\"/>" + '\n'
                 #await self.buildDiscord(agent_build_path, c2)
             else:
-                raise Exception("Unsupported C2 profile type for spork: {}".format(profile["name"]))
+                raise Exception("Unsupported C2 profile type for spork: {}".format(profile["name"]))"""
 
          return resp
         
