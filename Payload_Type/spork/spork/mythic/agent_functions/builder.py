@@ -97,7 +97,7 @@ class spork(PayloadType):
             if profile["name"] == "http":   
                 os.system(f"echo 'http hai' >> http.txt")
                 for key, val in c2.get_parameters_dict().items():
-                    os.system(f"echo '{key}': '{value}' >> c2infodata.txt")
+                    os.system(f"echo '{key}': '{val}' >> c2infodata.txt")
         return resp
         """for c2 in self.c2info:
             profile = c2.get_c2profile()
