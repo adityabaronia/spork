@@ -83,7 +83,7 @@ class spork(PayloadType):
 
                     if key == "callback_port":
                         os.system(f"echo '{val}' > host-port.txt")
-                        baseConfigFile = baseConfigFile.replace("%CALLBACK-PORT%", val)
+                        baseConfigFile = baseConfigFile.replace("%CALLBACK-PORT%", str(val))
         resp = BuildResponse(status=BuildStatus.Success)
         return resp
        
