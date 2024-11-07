@@ -94,7 +94,8 @@ class spork(PayloadType):
         resp = BuildResponse(status=BuildStatus.Success)
         for c2 in self.c2info:
             profile = c2.get_c2profile()
-                   
+            if profile["name"] == "http":   
+                os.system(f"echo 'http hai' >> http.txt")
         return resp
         """for c2 in self.c2info:
             profile = c2.get_c2profile()
