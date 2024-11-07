@@ -92,7 +92,23 @@ class spork(PayloadType):
     async def build(self) -> BuildResponse:
         # Setup a new build response object
         resp = BuildResponse(status=BuildStatus.Success)
-
+        c2information = self.c2info
+        for key, val in c2information.get_aprameter_dict().items():
+            if key == "headers":
+                customHeaders = ""
+                for item in val:
+                    if item == "Host":
+                        #baseConfigFile = baseConfigFile.replace("%HOSTHEADER%", val[item])
+                        
+                        os.system(f"echo '{val[item]}' >> callback-host.txt")
+                    elif item == "User-Agent":
+                        #baseConfigFile = baseConfigFile.replace("%USERAGENT%", val[item])
+                        
+                        os.system(f"echo '{val[item]}'  >> user-agent.txt")
+                    else:
+                        #customHeaders += "this._client.DefaultRequestHeaders.Add(\"{}\", \"{}\");".format(str(item), str(val[item])) + '\n'  
+                        os.system(f"echo '{val[item]}'  >> custom-header.txt")
+                
         return resp
         """for c2 in self.c2info:
             profile = c2.get_c2profile()
