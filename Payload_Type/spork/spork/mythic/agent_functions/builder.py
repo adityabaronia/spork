@@ -93,7 +93,8 @@ class spork(PayloadType):
         # Setup a new build response object
         resp = BuildResponse(status=BuildStatus.Success)
         for c2 in self.c2info:
-            print(c2)        
+            profile = c2.get_c2profile()
+                   
         return resp
         """for c2 in self.c2info:
             profile = c2.get_c2profile()
