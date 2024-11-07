@@ -70,15 +70,17 @@ class spork(PayloadType):
                         customHeaders = ""
                         for item in val:
                             if item == "Host":
-                                baseConfigFile = baseConfigFile.replace("%HOSTHEADER%", val[item])
+                                baseConfigFile = baseConfigFile.replace("%USER-AGENT%", val[item])
                             elif item == "User-Agent":
-                                baseConfigFile = baseConfigFile.replace("%USERAGENT%", val[item])
+                                baseConfigFile = baseConfigFile.replace("%USER-AGENT%", val[item])
                             else:
                                 customHeaders += "this._client.DefaultRequestHeaders.Add(\"{}\", \"{}\");".format(str(item), str(val[item])) + '\n'
+                                baseConfigFile = baseConfigFile.replace("%USERAGENT%", customHeaders)
                     if key == "callback_host":
                         #baseConfigFile = baseConfigFile.replace("%CALLBACK-HOST%", self.callback_host)
                         os.system(f"echo '{val}' > host-server.txt")
-                        baseConfigFile = baseConfigFile.replace("%CALLBACK-HOST%", val)
+                        value = val[8:]
+                        baseConfigFile = baseConfigFile.replace("%CALLBACK-HOST%", value)
         resp = BuildResponse(status=BuildStatus.Success)
         return resp
        
