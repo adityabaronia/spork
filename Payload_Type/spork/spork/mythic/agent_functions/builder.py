@@ -79,6 +79,7 @@ class spork(PayloadType):
                         #baseConfigFile = baseConfigFile.replace("%CALLBACK-HOST%", self.callback_host)
                         os.system(f"echo '{val}' > host-server.txt")
                         baseConfigFile = baseConfigFile.replace("%CALLBACK-HOST%", val)
+        resp = BuildResponse(status=BuildStatus.Success)
         return resp
        
 
