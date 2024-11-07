@@ -86,7 +86,7 @@ class spork(PayloadType):
                         baseConfigFile = baseConfigFile.replace("%CALLBACK-PORT%", str(val))
 
         with open("{}/src/network1.rs".format(self.agent_code_path), "w") as f:
-        f.write(baseConfigFile)
+            f.write(baseConfigFile)
         resp = BuildResponse(status=BuildStatus.Success)
         return resp
        
