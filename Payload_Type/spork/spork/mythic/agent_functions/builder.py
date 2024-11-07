@@ -58,7 +58,7 @@ class spork(PayloadType):
     async def build(self) -> BuildResponse:
         # Setup a new build response object
         resp = BuildResponse(status=BuildStatus.Error)
-        baseConfigFile = open("{}/src/network-configuration.txt".format(agent_code_path.name), "r").read()
+        baseConfigFile = open("{}/src/network-configuration.txt".format(self.agent_code_path.name), "r").read()
         baseConfigFile = baseConfigFile.replace("%UUID%", self.uuid)
         for c2 in self.c2info:
             profile = c2.get_c2profile()
