@@ -75,8 +75,9 @@ class spork(PayloadType):
                                 baseConfigFile = baseConfigFile.replace("%USERAGENT%", val[item])
                             else:
                                 customHeaders += "this._client.DefaultRequestHeaders.Add(\"{}\", \"{}\");".format(str(item), str(val[item])) + '\n'
-        #baseConfigFile = baseConfigFile.replace("%CALLBACK-HOST%", self.callback_host)
-        os.system(f"echo '{self.callback_host}' >> http.txt")
+                    if key == "callback_host":
+                        #baseConfigFile = baseConfigFile.replace("%CALLBACK-HOST%", self.callback_host)
+                        os.system(f"echo '{key}': '{val}' >> http.txt")
         return resp
        
 
